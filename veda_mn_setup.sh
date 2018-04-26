@@ -116,7 +116,7 @@ function compile_node() {
   cd Veda/src
   make -f makefile.unix
   compile_error Veda 
-  chmod +x  Bitcoin_Lightningd
+  chmod +x  vedad
   cp -a  vedad /usr/local/bin
   clear
   cd ~

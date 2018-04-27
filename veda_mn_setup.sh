@@ -42,6 +42,20 @@ if [ -n "$(pidof $VEDA_DAEMON)" ] || [ -e "$VEDA_DAEMOM" ] ; then
 else
   NEW_VEDA="new"
 fi
+echo -e "${NC}"
+apt-get update
+apt-get upgrade
+apt-get install libboost-system1.58.0
+apt-get install libboost-filesystem1.58.0
+apt-get install libboost-program-options1.58.0
+apt-get install libboost-thread1.58.0
+apt-get install libboost-chrono1.58.0
+apt-get install libminiupnpc10
+apt-get install libzmq5
+apt-get install libevent-2.0-5
+apt-get install libevent-pthreads-2.0-5
+apt-get install pwgen
+apt-get install bc
 }
 
 function prepare_system() {
@@ -94,8 +108,11 @@ clear
 function install_daemon() {
     echo -e "Download the debian package from Veda git.."
     wget https://github.com/Veda-Coin/VedaCore/releases/download/Veda-Core1.0-1/veda-setup_1.0-1.deb
-    dpkg -i veda-setup_1.0-1.deb
-    vedad
+    sleep 2
+    dpkg --install veda-setup_1.0-1.deb
+    sleep 1
+    vedad &
+    sleep 5
 }
 
 function compile_node() {
@@ -115,7 +132,7 @@ function compile_node() {
   git clone $VEDA_REPO
   cd Veda/src
   make -f makefile.unix
-  compile_error Veda 
+  compile_error Veda
   chmod +x  vedad
   cp -a  vedad /usr/local/bin
   clear
@@ -123,19 +140,22 @@ function compile_node() {
   rm -rf $TMP_FOLDER
 }
 
-wait_collateral() {
-    echo -e "Please send this address the collateral of 1000 VEDA!"
+function wait_collateral() {
+    clear
+    echo -e "${GREEN}Please send this address the collateral of 1000 VEDA!${NC}"
     ADDRESS=$(veda-cli getaccountaddress 0)
     echo -e "${RED}$ADDRESS${NC}"
     BALANCE=0
-    COLLATERAL=1000
+    COLLATERAL=1000.0
     BALANCE=$(veda-cli getbalance)
-    if [ $BALANCE '<' $COLLATERAL ]; then
-	echo -e "The current balance is ${RED}$BALANCE${NC}"
+    if (( $(echo "$BALANCE < $COLLATERAL" | bc -l) )); then
+        echo -e "The current balance is ${RED}$BALANCE${NC}"
+        echo -e "${GREEN}Please wait until your balance is bigger than 1000 VEDA!${NC}"
     fi
-     while [  $BALANCE '<' $COLLATERAL ]; do
-	sleep 2
-     done
+    while (( $(echo "$BALANCE < $COLLATERAL" | bc -l) )); do
+        BALANCE=$(veda-cli getbalance)
+        sleep 2
+    done
     echo -e "The current balance is ${GREEN}$BALANCE${NC}"
 
 }
@@ -252,7 +272,7 @@ rpcallowip=127.0.0.1
 listen=1
 server=1
 daemon=1
-maxconnections=64
+maxconnections=256
 #----
 masternode=1
 masternodeprivkey=$PRIV_KEY
@@ -266,12 +286,16 @@ EOF
   a=${outputs#*\"}
   tr_hash=${a%%\"*}
   echo -e "Transaction hash is ${RED}$tr_hash${NC}"
+  b=${a#*\"}
+  b=${b#*\"}
+  INDEX=${b%%\"*}
+
   myip=$(getMyIP)
   cat << EOF > $DEFAULTVEDAFOLDER/$MASTERNODE_CONFIG_FILE
 # Masternode config file
 # Format: alias IP:port masternodeprivkey collateral_output_txid collateral_output_index
 # Example: mn1 127.0.0.2:41992 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0
-$MN_NAME $myip:$DEFAULTVEDAPORT $PRIV_KEY $tr_hash 0
+$MN_NAME $myip:$DEFAULTVEDAPORT $PRIV_KEY $tr_hash $INDEX
 
 EOF
 veda-cli stop
@@ -291,6 +315,7 @@ while [ $MNSYNCSTAT -lt 999 ]; do
 done
 echo -e "${GREEN} "
 veda-cli masternode start-alias $MN_NAME
+echo -e "${NC} "
 }
 
 function create_key() {
@@ -351,6 +376,7 @@ $MN_NAME $IP_ADDRESS:$DEFAULTVEDAPORT $PRIV_KEY $tr_hash 0
 
 EOF
   veda-cli masternode start-alias $MN_NAME
+    echo -e "${NC}"
 }
 
 function setup_node() {

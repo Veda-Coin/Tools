@@ -18,18 +18,18 @@ This project is for installing masternode and miner of veda coin.
  
   To run Follow these three commands individually in putty
 
-  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/VedaMinerSetup.sh
+  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/veda_miner_setup.sh
 
-  chmod +x VedaMinerSetup.sh
+  chmod +x veda_miner_setup.sh
   
-  ./VedaMinerSetup.sh
+  ./veda_miner_setup.sh
 
  3. If you want to install both of Masternode and Miner wallet easily, please run as following:
  
   To run Follow these three commands individually in putty
 
-  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/Veda_mn_miner-setup.sh
+  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/veda_mn_miner-setup.sh
 
-  chmod +x Veda_mn_miner-setup.sh
+  chmod +x veda_mn_miner-setup.sh
   
-  ./Veda_mn_miner-setup.sh
+  ./veda_mn_miner-setup.sh

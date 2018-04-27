@@ -1,4 +1,4 @@
-These scripts is only for Ubuntu 16.04 vps.
+These scripts are only for Ubuntu 16.04 vps.
 
 # Tools
 

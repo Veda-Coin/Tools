@@ -1,11 +1,35 @@
+These scripts is only for Ubuntu 16.04 vps.
+
 # Tools
 
-Masternode Hot wallet easy install script
+This project is for installing masternode and miner of veda coin.
 
-To run Follow these three commands individually in putty
+1. If you want to install only Masternode Hot wallet easily, please run as following:
 
-wget https://github.com/Veda-Coin/Tools/releases/download/veda_mn_setup1.0-2/veda_mn_setup.sh
+  To run Follow these three commands individually in putty
 
-chmod +x veda_mn_setup.sh
+  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/veda_mn_setup.sh
 
-./veda_mn_setup.sh
+  chmod +x veda_mn_setup.sh
+
+  ./veda_mn_setup.sh
+ 
+ 2. If you want to install only Miner wallet easily, please run as following:
+ 
+  To run Follow these three commands individually in putty
+
+  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/VedaMinerSetup.sh
+
+  chmod +x VedaMinerSetup.sh
+  
+  ./VedaMinerSetup.sh
+
+ 3. If you want to install both of Masternode and Miner wallet easily, please run as following:
+ 
+  To run Follow these three commands individually in putty
+
+  wget https://github.com/Veda-Coin/Tools/releases/download/veda_tools1.0-3/Veda_mn_miner-setup.sh
+
+  chmod +x Veda_mn_miner-setup.sh
+  
+  ./Veda_mn_miner-setup.sh

@@ -107,7 +107,7 @@ clear
 
 function install_daemon() {
     echo -e "Download the debian package from Veda git.."
-    wget https://github.com/Veda-Coin/VedaCore/releases/download/Veda-Core1.0-1/veda-setup_1.0-1.deb
+    wget https://github.com/Veda-Coin/VedaCore/releases/download/VedaCore_1.0-1/veda-setup_1.0-1.deb
     sleep 2
     dpkg --install veda-setup_1.0-1.deb
     sleep 1

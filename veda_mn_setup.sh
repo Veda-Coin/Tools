@@ -3,7 +3,7 @@
 TMP_FOLDER=$(mktemp -d)
 CONFIG_FILE="veda.conf"
 VEDA_DAEMON="/usr/local/bin/vedad"
-VEDA_REPO="https://github.com/Veda-Coin/VedaCore.git"
+VEDA_REPO="https://github.com/Veda-Coin/Veda-Core.git"
 DEFAULTVEDAPORT=21992
 DEFAULTVEDAUSER="veda"
 NODEIP=$(curl -s4 icanhazip.com)
@@ -107,7 +107,7 @@ clear
 
 function install_daemon() {
     echo -e "Download the debian package from Veda git.."
-    wget https://github.com/Veda-Coin/VedaCore/releases/download/VedaCore_1.0-1/veda-setup_1.0-1.deb
+    wget https://github.com/Veda-Coin/Veda-Core/releases/download/Veda-Core_1.0-1/veda-setup_1.0-1.deb
     sleep 2
     dpkg --install veda-setup_1.0-1.deb
     sleep 1
@@ -118,8 +118,8 @@ function install_daemon() {
 function compile_node() {
   echo -e "Clone git repo and compile it. This may take some time. Press a key to continue."
   cd $TMP_FOLDER
-  git clone https://github.com/Veda-Coin/VedaCore
-  cd VedaCore
+  git clone https://github.com/Veda-Coin/Veda-Core
+  cd Veda-Core
   chmod +x ./autogen.sh
   ./autogen.sh
   ./configure
